@@ -1,0 +1,49 @@
+LEARN CHEM 3.3 — AUTHENTICATION & SCHOOL GROUP REPAIR
+
+This is a PATCH package, not a complete replacement project.
+It preserves your existing lessons, quizzes, curriculum, styles, and Supabase settings.
+
+FILES TO REPLACE IN YOUR EXISTING GITHUB REPOSITORY
+1. cloud-learning.js
+2. school.html
+3. service-worker.js
+
+NEW DATABASE MIGRATION
+4. supabase/migrations/003_auth_groups_repair.sql
+
+IMPORTANT — KEEP YOUR EXISTING cloud-config.js
+Do NOT replace cloud-config.js with a copy from an older ZIP. Keep the file where you entered your own Supabase Project URL and publishable key. Never put a service_role or secret key in this file.
+
+INSTALL STEPS
+1. Download and extract this ZIP.
+2. Open your existing LEARN-CHEM GitHub repository folder on your computer.
+3. Copy the three replacement files into the matching locations, replacing the old files.
+4. Copy 003_auth_groups_repair.sql into supabase/migrations/.
+5. Keep your existing cloud-config.js unchanged.
+6. Commit and push the updated files to GitHub Pages.
+7. In Supabase → SQL Editor → New query, open 003_auth_groups_repair.sql, copy all its contents, paste into SQL Editor, and click Run.
+8. Refresh https://chukzblaq001.github.io/LEARN-CHEM/ while online. The service-worker cache is now learnchem-v9. If an installed PWA shows old files, close it fully and reopen while online.
+
+REGISTRATION TEST
+1. Open profile.html.
+2. Register using an email address you have not used before, a password of at least 8 characters, your name, and your class.
+3. If email confirmation is enabled, open the email and confirm before signing in.
+4. In Supabase → Authentication → Users, check that the new email exists.
+5. If the app says the email may already be registered, try signing in with that address instead of repeatedly registering.
+6. If the user does not appear, verify that the Project URL in your existing cloud-config.js matches the Supabase project currently open in your dashboard. Do not share the key in chat.
+
+SCHOOL GROUP WORKFLOW
+- All new registrations are students by default.
+- Students join groups using a teacher's join code on school.html.
+- Only approved teacher/admin accounts can create groups.
+- After the teacher has registered, the project administrator must promote that exact account in Supabase SQL Editor. Replace teacher@example.com with the verified teacher's email:
+
+update public.profiles
+set role = 'teacher'
+where id = (select id from auth.users where email = 'teacher@example.com');
+
+- The teacher signs out and signs back in, creates a group, and shares the generated join code.
+- Students sign in, enter the join code, and click Join group.
+
+SECURITY
+Do not let public users choose teacher/admin roles. Never expose the Supabase service_role/secret key or an OpenAI API key in browser files or GitHub.

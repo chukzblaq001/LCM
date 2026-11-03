@@ -1,4 +1,4 @@
-const CACHE_NAME = "learnchem-v8";
+const CACHE_NAME = "learnchem-v9";
 const FILES = ["./","./index.html","./styles.css","./app.js","./feature-upgrades.js","./curriculum-data.js","./curriculum-content.js","./manifest.json","./icon.svg","./cloud-learning.css","./cloud-config.js","./cloud-learning.js",
   './dashboard.html',
   './learning-center.html',
