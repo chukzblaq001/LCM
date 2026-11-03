@@ -1,0 +1,19 @@
+{
+  "id": "./",
+  "name": "LEARN CHEM \u2014 Free Offline Chemistry",
+  "short_name": "LEARN CHEM",
+  "description": "Free offline Chemistry lessons, diagrams and quizzes.",
+  "start_url": "./dashboard.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7fbf9",
+  "theme_color": "#087f68",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

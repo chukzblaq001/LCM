@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#087f68">
+  <meta name="description" content="Free offline Chemistry lessons, diagrams and quizzes for Nigerian learners.">
+  <title>LEARN CHEM — Chemistry made clear</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="cloud-learning.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="LEARN CHEM home">
+      <span class="brand-mark">LC</span><span>LEARN CHEM<small>Understand it. Apply it. Master it.</small></span>
+    </a>
+    <button id="installBtn" class="button button-light hidden" type="button">Install app</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-copy-wrap">
+        <p class="eyebrow">YOUR FREE CHEMISTRY COMPANION</p>
+        <h1>Make chemistry<br><span>make sense.</span></h1>
+        <p class="hero-copy">Learn chemical concepts, explore diagrams, practise questions and track your progress — even without internet.</p>
+        <div class="hero-actions">
+          <button class="button" id="startLearningBtn" type="button">Explore lessons</button>
+          <button class="button button-outline" id="dailyQuizBtn" type="button">Quick quiz</button>
+        </div>
+        <p class="offline-note"><span class="status-dot"></span> Designed for offline learning after the first load</p>
+      </div>
+      <div class="hero-art" aria-label="Chemistry illustration">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="atom-core">⚛</div><div class="bubble bubble-one">Na</div>
+        <div class="bubble bubble-two">Cl</div><div class="bubble bubble-three">H₂O</div>
+        <div class="art-label">EXPLORE THE ELEMENTS</div>
+      </div>
+    </section>
+
+    <section class="section learning-center" id="learningCenter">
+      <div class="section-heading"><div><p class="eyebrow">YOUR PERSONAL STUDY SPACE</p><h2>Learning Centre</h2><p class="section-subtitle">Create an account or sign in, then choose your class. LEARN CHEM will focus lessons, topics and practice on that level.</p></div><span class="cloud-status" id="classStatus">Choose your class</span></div>
+      <div class="cloud-grid learning-center-grid">
+        <article class="cloud-card"><h3>Student & teacher account</h3><p>Create an account or sign in to sync your learning progress across devices.</p><label>Email<input id="cloudEmail" type="email" autocomplete="email" placeholder="you@example.com"></label><label>Password<input id="cloudPassword" type="password" autocomplete="current-password" placeholder="At least 8 characters"></label><label>Display name<input id="cloudDisplayName" type="text" autocomplete="name" placeholder="Your name (for sign up)"></label>
+        <label>Your class (required for student registration)
+          <select id="signupClass" required>
+            <option value="">Choose your class</option>
+            <option>JSS 1</option><option>JSS 2</option><option>JSS 3</option>
+            <option>SS 1</option><option>SS 2</option><option>SS 3</option>
+            <option>University 100</option><option>University 200</option><option>University 300</option><option>University 400</option>
+          </select>
+        </label><div class="cloud-actions"><button class="button" id="cloudSignUp">Create account</button><button class="button button-outline" id="cloudSignIn">Sign in</button></div><button class="text-button hidden" id="cloudSignOut">Sign out</button><p class="cloud-message" id="authMessage" aria-live="polite">Set up Supabase to enable accounts.</p></article>
+        <article class="cloud-card class-choice-card">
+          <h3>Choose your learning class</h3>
+          <p>Your selected class controls the Chemistry lessons, curriculum topics and quick practice shown in the learning library.</p>
+          <label>My class
+            <select id="learnerClass">
+              <option value="">Choose your class</option>
+              <option>JSS 1</option><option>JSS 2</option><option>JSS 3</option>
+              <option>SS 1</option><option>SS 2</option><option>SS 3</option>
+              <option>University 100</option><option>University 200</option><option>University 300</option><option>University 400</option>
+            </select>
+          </label>
+          <button class="button" id="saveLearnerClass" type="button">Save my class</button>
+          <p class="cloud-message" id="classMessage" aria-live="polite">Choose a class to personalise your learning. You can change it later.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="stats-grid" aria-label="Your learning progress">
+      <article class="stat-card"><span class="stat-icon">📘</span><div><strong id="lessonsDone">0</strong><span>Lessons completed</span></div></article>
+      <article class="stat-card"><span class="stat-icon">🎯</span><div><strong id="bestScore">—</strong><span>Best quiz score</span></div></article>
+      <article class="stat-card"><span class="stat-icon">🔖</span><div><strong id="savedCount">0</strong><span>Saved topics</span></div></article>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div><p class="eyebrow">LEARNING LIBRARY</p><h2>Choose your level</h2><p class="section-subtitle">Start from the basics or move to advanced Chemistry.</p></div>
+        <label class="search-wrap"><span>⌕</span><input id="searchInput" type="search" placeholder="Search lessons..." aria-label="Search lessons"></label>
+      </div>
+      <div class="filters" id="levelFilters"></div>
+      <div id="lessonGrid" class="lesson-grid"></div>
+      <p id="emptyMessage" class="empty-message hidden">No lessons found. Try another search or level.</p>
+    </section>
+
+    <section class="section tutor-section" id="chemistryTutor">
+      <div class="section-heading"><div><p class="eyebrow">ASK • LEARN • REVISE</p><h2>Your Chemistry study tutor</h2><p class="section-subtitle">Ask a question and get help from the offline Chemistry knowledge pack. Works without an AI API or subscription.</p></div></div>
+      <div class="tutor-layout">
+        <div class="tutor-chat" id="tutorChat" aria-live="polite">
+          <div class="tutor-message assistant"><strong>LEARN CHEM Tutor</strong><p>Hello! I can explain topics from the lessons stored in this app. Ask me about atoms, equations, moles, bonding, acids, redox, gas laws and more. I work offline, so my answers come from the built-in study content rather than a live AI model.</p></div>
+        </div>
+        <div class="tutor-compose"><input id="tutorInput" type="text" placeholder="Ask a Chemistry question..." aria-label="Ask the Chemistry tutor"><button class="button" id="askTutorBtn" type="button">Ask tutor</button></div>
+        <div class="tutor-prompts"><span>Try:</span><button type="button" data-tutor-prompt="Explain atoms simply">Explain atoms</button><button type="button" data-tutor-prompt="How do I balance equations?">Balance equations</button><button type="button" data-tutor-prompt="What is the mole formula?">Mole formula</button><button type="button" data-tutor-prompt="Difference between ionic and covalent bonds">Compare bonds</button></div>
+        <p class="tutor-disclaimer">Offline tutor note: this is a local, topic-aware study assistant, not a live generative AI chatbot. An online AI mode can be connected later through a secure backend; never put a private API key in browser JavaScript.</p>
+      </div>
+    </section>
+
+    <section class="section curriculum-section">
+      <div class="section-heading"><div><p class="eyebrow">CURRICULUM ROADMAP</p><h2>Explore the Chemistry pathway</h2>
+        <p class="section-subtitle">A structured roadmap from JSS foundations to final-year university topics.</p></div></div>
+      <div class="curriculum-controls">
+        <label class="search-wrap"><span>⌕</span><input id="curriculumSearch" type="search" placeholder="Find a curriculum topic..." aria-label="Search curriculum"></label>
+        <select id="curriculumLevel" aria-label="Choose curriculum level"><option>All levels</option>
+          <option>JSS 1</option><option>JSS 2</option><option>JSS 3</option>
+          <option>SS 1</option><option>SS 2</option><option>SS 3</option>
+          <option>University 100</option><option>University 200</option><option>University 300</option><option>University 400</option>
+        </select>
+      </div>
+      <p id="curriculumCount" class="progress-text"></p>
+      <div id="curriculumGrid" class="curriculum-grid"></div>
+      <p class="curriculum-note"><strong>Curriculum note:</strong> JSS topics are introductory Basic Science foundations. Senior secondary topics should be checked against the current Nigerian curriculum and examination syllabuses. University course titles and depth vary by institution and programme. This roadmap is a study guide, not a claim to reproduce every official syllabus heading.</p>
+    </section>
+
+    <section class="section progress-panel">
+      <div><p class="eyebrow">KEEP GOING</p><h2>Your learning journey</h2><p>Progress is saved on this device using browser local storage.</p></div>
+      <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+      <p id="progressText" class="progress-text">0% of lessons completed</p>
+      <button id="resetProgressBtn" class="text-button" type="button">Reset my progress</button>
+    </section>
+    <section class="section cloud-section" id="cloudLearning">
+      <div class="section-heading"><div><p class="eyebrow">LEARN TOGETHER</p><h2>Accounts, schools & online AI</h2><p class="section-subtitle">Optional online features. Your offline lessons continue to work without an account.</p></div><span class="cloud-status" id="cloudStatus">Cloud setup required</span></div>
+      <div class="cloud-grid">
+        
+        <article class="cloud-card"><h3>My school group</h3><p>Teachers can create a class group. Students can join with a code from their teacher.</p><div id="teacherGroupControls" class="hidden"><label>Group name<input id="newGroupName" type="text" placeholder="e.g. SS2 Chemistry"></label><button class="button" id="createGroupBtn">Create school group</button></div><label>Join code<input id="groupJoinCode" type="text" maxlength="12" placeholder="Enter teacher's code"></label><button class="button button-outline" id="joinGroupBtn">Join group</button><div id="myGroups" class="group-list">Sign in to see your groups.</div><div id="teacherRoster" class="roster-list"></div><p class="cloud-message" id="groupMessage" aria-live="polite"></p></article>
+        <article class="cloud-card"><h3>Sync my learning</h3><p>Save your local LEARN CHEM progress to your account and restore it on another device.</p><button class="button" id="syncProgressBtn">Sync progress to cloud</button><p class="cloud-message" id="syncMessage" aria-live="polite">Your existing progress remains stored on this device.</p></article>
+        <article class="cloud-card ai-cloud-card"><h3>Online AI Chemistry Tutor</h3><p>Ask follow-up questions and get explanations generated by an AI model. Internet and API usage billing are required.</p><div id="onlineTutorLog" class="online-tutor-log" aria-live="polite"><p class="tutor-message assistant">When connected, ask me to explain a concept, solve a Chemistry problem step by step, or create revision questions.</p></div><label>Your Chemistry question<textarea id="onlineTutorQuestion" rows="3" placeholder="Explain electrolysis with a simple example..."></textarea></label><button class="button" id="askOnlineTutorBtn">Ask online AI tutor</button><p class="cloud-message" id="aiTutorMessage">The offline tutor above remains available without an account.</p></article>
+      </div>
+      <p class="cloud-footnote">Privacy: do not enter sensitive personal information. School groups should only be used with appropriate school/guardian permission. Teacher access must be granted by the project administrator.</p>
+    </section>
+    <footer><span class="brand-mini">LEARN CHEM</span><span>Free learning for everyone · Built to work offline</span></footer>
+  </main>
+
+  <dialog id="lessonDialog" class="modal">
+    <div class="modal-header"><div><p class="eyebrow" id="modalLevel"></p><h2 id="modalTitle">Lesson title</h2></div><button class="icon-button" id="closeLessonBtn" aria-label="Close lesson">✕</button></div>
+    <div id="modalBody" class="lesson-body"></div>
+    <div class="modal-actions"><button id="bookmarkBtn" class="button button-outline" type="button">☆ Save topic</button><button id="markCompleteBtn" class="button" type="button">Mark complete</button><button id="startTopicQuizBtn" class="button button-dark" type="button">Take topic quiz</button></div>
+  </dialog>
+
+  <dialog id="quizDialog" class="modal quiz-modal">
+    <div class="modal-header"><div><p class="eyebrow">PRACTICE TIME</p><h2 id="quizTitle">Chemistry quiz</h2></div><button class="icon-button" id="closeQuizBtn" aria-label="Close quiz">✕</button></div>
+    <div id="quizBody"></div>
+  </dialog>
+  <script src="curriculum-data.js" defer></script>
+  <script src="app.js" defer></script>
+  <script src="feature-upgrades.js" defer></script>
+  <script type="module" src="cloud-learning.js"></script>
+</body>
+</html>

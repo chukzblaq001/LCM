@@ -1,0 +1,1 @@
+LEARN CHEM 3.0 cloud upgrade. Offline app remains intact. Cloud features require a Supabase project. Follow README.md section LEARN CHEM 3.0. Never publish secret keys. Online AI requires an OpenAI API key stored only in Supabase Edge Function secrets and separate API billing.
